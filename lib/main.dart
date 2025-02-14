@@ -50,15 +50,7 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     // Cek apakah email atau password salah
-    if (email != "habibah123" || password != "12345678") {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Username atau Password salah!'),
-          backgroundColor: Colors.grey,
-        ),
-      );
-      return;
-    }
+
 
     // Jika login berhasil
     ScaffoldMessenger.of(context).showSnackBar(
@@ -81,32 +73,18 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: Colors.white,
       body: Column(
         children: <Widget>[
-          Container(
-            height: 200,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: Stack(
-              children: <Widget>[
-                Positioned(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 50),
-                    child: Center(
-                      child: Text(
-                        "Welcome!",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+          SizedBox(height: 40),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              height: 250,
+              width: 250,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/boba.jpg'),
+                  fit: BoxFit.fill,
                 ),
-              ],
+              ),
             ),
           ),
           Padding(
@@ -189,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Text(
                       "Forgot Password?",
-                      style: TextStyle(color: Color.fromRGBO(143, 148, 251, 1)),
+                      style: TextStyle(color: Colors.brown[300]),
                     ),
                     Row(
                       children: [
@@ -206,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                               shape: BoxShape.circle,
                               border: Border.all(
                                 color: _isRememberMeChecked
-                                    ? Color.fromRGBO(143, 148, 251, 1)
+                                    ? Colors.brown
                                     : Colors.grey[400]!,
                                 width: 2,
                               ),
@@ -215,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ? Icon(
                                     Icons.check,
                                     size: 16,
-                                    color: Color.fromRGBO(143, 148, 251, 1),
+                                    color: Colors.brown[300],
                                   )
                                 : null,
                           ),
@@ -224,7 +202,7 @@ class _LoginPageState extends State<LoginPage> {
                         Text(
                           "Remember Me",
                           style: TextStyle(
-                            color: Color.fromRGBO(143, 148, 251, 1),
+                            color: Colors.brown[300],
                           ),
                         ),
                       ],
@@ -240,8 +218,8 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(10),
                       gradient: LinearGradient(
                         colors: [
-                          Color.fromRGBO(143, 148, 251, 1),
-                          Color.fromRGBO(143, 148, 251, .6),
+                          Colors.brown,
+                          Colors.black,
                         ],
                       ),
                     ),
