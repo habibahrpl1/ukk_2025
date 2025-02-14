@@ -34,24 +34,45 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = TextEditingController();
 
   // Fungsi untuk menangani tombol login
-  void _handleLogin() {
+  void _handleLogin() async {
     String email = emailController.text;
     String password = passwordController.text;
 
+    // Validasi input
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Email Dan Password Tidak Boleh Kosong!'),
+          content: Text('Email dan Password tidak boleh kosong!'),
           backgroundColor: Colors.grey,
         ),
       );
       return;
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
     }
+
+    // Cek apakah email atau password salah
+    if (email != "habibah123" || password != "12345678") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Username atau Password salah!'),
+          backgroundColor: Colors.grey,
+        ),
+      );
+      return;
+    }
+
+    // Jika login berhasil
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Login Berhasil!'),
+        backgroundColor: Colors.grey,
+      ),
+    );
+
+    // Navigasi ke halaman Home
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()),
+    );
   }
 
   @override
