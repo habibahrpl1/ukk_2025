@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:ukk_2025/detailpenjualan/indexdetail.dart';
 import 'package:ukk_2025/main.dart';
-import 'package:ukk_2025/pelanggan/indexpelanggan';
+import 'package:ukk_2025/pelanggan/indexpelanggan.dart';
+import 'package:ukk_2025/pelanggan/insertpelanggan.dart';
 import 'package:ukk_2025/produk/indexproduk.dart';
-import 'package:ukk_2025/register/insertregister.dart';
+import 'package:ukk_2025/penjualan/indexpenjualan.dart';
+import 'package:ukk_2025/register/indexuser.dart';
+import 'package:ukk_2025/register/updateuser.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,8 +32,10 @@ class _HomePageState extends State<HomePage> {
 
   final List<Widget> _pages = [
     Produk(),   
-    Pelanggan(), 
-    PenjualanPage(), 
+    Pelanggan(),
+    indexpenjualan(), 
+    userpage(),
+    detailpage(),
   ];
 
   void _onTabTapped(int index) {

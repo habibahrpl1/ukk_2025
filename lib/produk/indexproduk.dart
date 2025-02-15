@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'insertproduk.dart';
-import 'updateproduk.dart';
+import 'package:ukk_2025/produk/insertproduk.dart';
+import 'package:ukk_2025/produk/updateproduk.dart';
+import 'package:ukk_2025/penjualan/indexpenjualan.dart';
+import 'package:ukk_2025/penjualan/cekout.dart';
 
 class Produk extends StatefulWidget {
   @override
@@ -168,12 +170,6 @@ class _ProdukState extends State<Produk> {
                                     );
                                   },
                                 ),
-                                IconButton(
-                                  icon: const Icon(Icons.shopping_cart, color: Colors.grey),
-                                  onPressed: () {
-                                    print('Produk ditambahkan ke keranjang');
-                                  },
-                                ),
                               ],
                             ),
                           ],
@@ -191,7 +187,7 @@ class _ProdukState extends State<Produk> {
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.brown,
-        foregroundColor: Colors.grey[300],
+        foregroundColor: Colors.black,
       ),
     );
   }

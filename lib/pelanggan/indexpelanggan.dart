@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'insertpelanggan.dart';
-import 'updatepelanggan.dart';
+import 'package:ukk_2025/produk/insertproduk.dart';
+import 'package:ukk_2025/pelanggan/insertpelanggan.dart';
+import 'package:ukk_2025/pelanggan/updatepelanggan.dart';
 
 class Pelanggan extends StatefulWidget {
   @override
@@ -185,7 +186,7 @@ class _PelangganState extends State<Pelanggan> {
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.brown,
-        foregroundColor: Colors.grey[300],
+        foregroundColor: Colors.black,
       ),
     );
   }
