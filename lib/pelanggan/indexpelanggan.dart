@@ -6,6 +6,8 @@ import 'package:ukk_2025/pelanggan/insertpelanggan.dart';
 import 'package:ukk_2025/pelanggan/updatepelanggan.dart';
 
 class Pelanggan extends StatefulWidget {
+  const Pelanggan({super.key});
+  
   @override
   _PelangganState createState() => _PelangganState();
 }

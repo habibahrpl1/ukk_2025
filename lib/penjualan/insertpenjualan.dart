@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class COpage extends StatefulWidget {
-  const COpage({super.key});
+class PenjualanPage extends StatefulWidget {
+  const PenjualanPage({super.key});
 
   @override
-  State<COpage> createState() => _COpageState();
+  State<PenjualanPage> createState() => _PenjualanPageState();
 }
 
-class _COpageState extends State<COpage> {
+class _PenjualanPageState extends State<PenjualanPage> {
   final SingleValueDropDownController nameController =
       SingleValueDropDownController();
   final SingleValueDropDownController produkController =

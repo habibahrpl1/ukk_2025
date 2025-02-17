@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ukk_2025/produk/insertproduk.dart';
 import 'package:ukk_2025/produk/updateproduk.dart';
 import 'package:ukk_2025/penjualan/indexpenjualan.dart';
-import 'package:ukk_2025/penjualan/cekout.dart';
 
 class Produk extends StatefulWidget {
   @override

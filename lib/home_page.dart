@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ukk_2025/detailpenjualan/indexdetail.dart';
+import 'package:ukk_2025/detailpenjualan/detailpenjualan.dart';
 import 'package:ukk_2025/main.dart';
 import 'package:ukk_2025/pelanggan/indexpelanggan.dart';
 import 'package:ukk_2025/pelanggan/insertpelanggan.dart';
 import 'package:ukk_2025/produk/indexproduk.dart';
 import 'package:ukk_2025/penjualan/indexpenjualan.dart';
+import 'package:ukk_2025/penjualan/insertpenjualan.dart';
 import 'package:ukk_2025/register/indexuser.dart';
 import 'package:ukk_2025/register/updateuser.dart';
 
@@ -33,9 +34,8 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     Produk(),   
     Pelanggan(),
-    indexpenjualan(), 
-    userpage(),
-    detailpage(),
+    Penjualan(), 
+    indexdetail(),
   ];
 
   void _onTabTapped(int index) {
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
               leading: Icon(Icons.person_add),
               title: Text('Registrasi'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => userpage()));
               },
             ),
             ListTile(
@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
             label: 'Penjualan',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long),
+            icon: Icon(Icons.receipt),
             label: 'Detail Penjualan',
           ),
         ],
@@ -135,7 +135,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
 
 class ProdukPage extends StatelessWidget {
   @override
@@ -161,7 +160,7 @@ class CustomerPage extends StatelessWidget {
   }
 }
 
-class PenjualanPage extends StatelessWidget {
+class indexpenjualan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -173,6 +172,17 @@ class PenjualanPage extends StatelessWidget {
   }
 }
 
+class indexdetail extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Halaman Detail Penjualan',
+        style: TextStyle(fontSize: 18),
+      ),
+    );
+  }
+}
 
 class CustomSearchDelegate extends SearchDelegate {
   @override

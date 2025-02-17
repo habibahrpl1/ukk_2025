@@ -56,8 +56,8 @@ class _userpageState extends State<userpage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.pink[300],
-          title: const Text("User D'Qasir"),
+          backgroundColor: Colors.brown,
+          title: const Text("Registrasi Kasir"),
           centerTitle: true,
           leading: IconButton(
             icon:
@@ -86,7 +86,7 @@ class _userpageState extends State<userpage> {
             //Bagian Header
             Card(
               margin: const EdgeInsets.all(10),
-              color: Colors.pink[50],
+              color: Colors.brown[50],
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 child: Row(
@@ -175,9 +175,9 @@ class _userpageState extends State<userpage> {
           onPressed: () {
             Navigator.push(context,MaterialPageRoute(builder: (context) => insertuser()));
           },
-          child: Icon(
-            Icons.add, color: Colors.brown,
-          )
+          child: Icon(Icons.add),
+          backgroundColor: Colors.brown,
+          foregroundColor: Colors.black,
         )
       );
   }

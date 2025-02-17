@@ -52,9 +52,6 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    // Cek apakah email atau password salah
-
-
     // Jika login berhasil
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -230,7 +227,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text(
                         "Login",
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
