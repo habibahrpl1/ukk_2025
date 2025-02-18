@@ -1,150 +1,100 @@
-import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
+import 'package:ukk_2025/home_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class PenjualanPage extends StatefulWidget {
-  const PenjualanPage({super.key});
+class AddPenjualan extends StatefulWidget {
+  const AddPenjualan({super.key});
 
   @override
-  State<PenjualanPage> createState() => _PenjualanPageState();
+  State<AddPenjualan> createState() => _AddPelangganState();
 }
 
-class _PenjualanPageState extends State<PenjualanPage> {
-  final SingleValueDropDownController nameController =
-      SingleValueDropDownController();
-  final SingleValueDropDownController produkController =
-      SingleValueDropDownController();
-  final TextEditingController quantityController = TextEditingController();
-  List myproduct = [];
-  List user = [];
+class _AddPelangganState extends State<AddPenjualan> {
+  
+  final _totalharga = TextEditingController();
+  final _pelangganid = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
-  takeProduct() async {
-    var product = await Supabase.instance.client.from('produk').select();
-    setState(() {
-      myproduct = product;
-    });
-  }
 
-  takePelanggan() async {
-    var pelanggan = await Supabase.instance.client.from('pelanggan').select();
-    setState(() {
-      user = pelanggan;
-    });
-  }
 
-  @override
-  void dispose() {
-    nameController.dispose();
-    quantityController.dispose();
-    super.dispose();
-  }
+  Future<void> prodk() async {
+    if (_formKey.currentState!.validate()) {
+     
+      final String TotalHarga = _totalharga.text;
+      final String PelangganID = _pelangganid.text;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    takeProduct();
-    takePelanggan();
-  }
-
-  void addPelanggan() {
-    final String name = nameController.dropDownValue!.value;
-    final int quantity = int.parse(quantityController.text);
-    print('Pelanggan Name: $name, Quantity: $quantity');
-    // Kembali ke layar sebelumnya setelah menambahkan produk
-    Navigator.of(context).pop();
-  }
-
-  void addProduct() {
-    // Implementasikan logika untuk menambahkan produk, misalnya, kirim data ke Supabase
-    final String name = nameController.dropDownValue!.value;
-    final int quantity = int.parse(quantityController.text);
-    print('Product Name: $name, Quantity: $quantity');
-    // Kembali ke layar sebelumnya setelah menambahkan produk
-    Navigator.of(context).pop();
-  }
-
-  executeSales() async {
-    var penjualan = await Supabase.instance.client
-        .from('penjualan')
-        .insert([
-          {
-            "Pelangganid": nameController.dropDownValue!.value["Pelangganid"],
-            "TotalHarga": ((produkController.dropDownValue!.value["Harga"] *
-                int.parse(quantityController.text)) as int)
-          }
-        ])
-        .select()
-        .single();
-    if (penjualan.isNotEmpty) {
-      var detailPenjualan =
-          await Supabase.instance.client.from('detailpenjualan').insert([
+      final response  = await Supabase.instance.client.from('penjualan').insert(
         {
-          "Penjualanid": penjualan["Penjualanid"],
-          "Produkid": produkController.dropDownValue!.value["Produkid"],
-          'JumlahProduk': int.parse(quantityController.text),
-          'Subtotal': ((produkController.dropDownValue!.value["Harga"] *
-              int.parse(quantityController.text)) as int)
+          'TotalHarga': TotalHarga,
+          'PelangganID': PelangganID,
+          
         }
-      ]);
-      if (detailPenjualan == null) {
-        var product = await Supabase.instance.client.from('produk').update({
-          'Stok': produkController.dropDownValue!.value["Stok"] -
-              int.parse(quantityController.text)
-        }).eq('Produkid', produkController.dropDownValue!.value["Produkid"]);
-        if (product == null) {
-          Navigator.pop(context, true);
-        }
+      );
+      if (response == null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      } else {
+       Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
       }
     }
   }
-    @override
-    Widget build (BuildContext context) {
-      return Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Tambah Penjualan'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              DropDownTextField(
-                dropDownList: [
-                  ...List.generate(user.length, (index) {
-                    return DropDownValueModel(
-                        name: user[index]['NamaPelanggan'], value: user[index]);
-                  })
-                ],
-                controller: nameController,
-                textFieldDecoration: InputDecoration(labelText: "Select User"),
-              ),
-              DropDownTextField(
-                dropDownList: [
-                  ...List.generate(myproduct.length, (index) {
-                    return DropDownValueModel(
-                        name: myproduct[index]['NamaProduk'],
-                        value: myproduct[index]);
-                  })
-                ],
-                controller: produkController,
-                textFieldDecoration:
-                    InputDecoration(labelText: "Select Produk"),
-              ),
-              TextField(
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller: quantityController,
-                decoration: InputDecoration(labelText: 'Jumlah'),
-                keyboardType: TextInputType.number,
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: (){
-                  executeSales();
+              TextFormField(
+                controller: _totalharga,
+                decoration: const InputDecoration(
+                  labelText: 'Total Harga',
+                  border: OutlineInputBorder(),
+                ),
+                
+                validator: (value){
+                  if (value == null || value.isEmpty) {
+                    return 'Nama tidak boleh kosong';
+                  }
+                  return null;
                 },
-                child: Text('Checkout'),
               ),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: _pelangganid,
+                decoration: const InputDecoration(
+                  labelText: 'Pelanggan ID',
+                  border: OutlineInputBorder(),
+                ),
+                
+                validator: (value){
+                  if (value == null || value.isEmpty) {
+                    return 'Alamat tidak boleh kosong';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: prodk,
+                child: const Text('Tambah'),
+              )
             ],
           ),
         ),
-      );
-    }
+      ),
+    );
   }
+}

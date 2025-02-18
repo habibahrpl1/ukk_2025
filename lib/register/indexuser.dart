@@ -5,14 +5,14 @@ import 'package:ukk_2025/register/updateuser.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class userpage extends StatefulWidget {
-  const userpage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<userpage> createState() => _userpageState();
+  State<RegisterPage> createState() => _RegisterPage();
 }
 
-class _userpageState extends State<userpage> {
+class _RegisterPage extends State<RegisterPage> {
   List<Map<String, dynamic>> user = [];
   bool isLoading = true;
 

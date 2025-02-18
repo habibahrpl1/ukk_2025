@@ -71,9 +71,9 @@ class _PelangganState extends State<Pelanggan> {
               : GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, // Jumlah kolom
-                    crossAxisSpacing: 12, // Jarak horizontal antar item
-                    mainAxisSpacing: 12, // Jarak vertikal antar item
-                    childAspectRatio: 4 / 4, // Rasio lebar : tinggi
+                    crossAxisSpacing: 20, // Jarak horizontal antar item
+                    mainAxisSpacing: 20, // Jarak vertikal antar item
+                    childAspectRatio: 2 / 2, // Rasio lebar : tinggi
                   ),
                   padding: EdgeInsets.all(8),
                   itemCount: pelanggan.length,
@@ -81,11 +81,11 @@ class _PelangganState extends State<Pelanggan> {
                     final langgan = pelanggan[index];
                     return Card(
                       elevation: 4,
-                      margin: EdgeInsets.all(8),
+                      margin: EdgeInsets.all(10),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12)),
                       child: Padding(
-                        padding: EdgeInsets.all(8),
+                        padding: EdgeInsets.all(10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

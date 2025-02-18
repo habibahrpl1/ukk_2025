@@ -54,7 +54,7 @@ class _updateuserState extends State<updateuser> {
         // Navigate back to UserTab
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => userpage()),
+          MaterialPageRoute(builder: (context) => RegisterPage()),
         );
       } catch (e) {
         print('Error: $e');

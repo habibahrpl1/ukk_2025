@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ukk_2025/detailpenjualan/detailpenjualan.dart';
+import 'package:ukk_2025/penjualan/indexpenjualan.dart';
+import 'package:ukk_2025/login.dart';
 import 'package:ukk_2025/main.dart';
 import 'package:ukk_2025/pelanggan/indexpelanggan.dart';
 import 'package:ukk_2025/pelanggan/insertpelanggan.dart';
@@ -8,6 +9,8 @@ import 'package:ukk_2025/penjualan/indexpenjualan.dart';
 import 'package:ukk_2025/penjualan/insertpenjualan.dart';
 import 'package:ukk_2025/register/indexuser.dart';
 import 'package:ukk_2025/register/updateuser.dart';
+import 'package:ukk_2025/penjualan/detailpenjualan.dart';
+import 'package:ukk_2025/splash.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,8 +37,8 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     Produk(),   
     Pelanggan(),
-    Penjualan(), 
-    indexdetail(),
+    PenjualanTab(),
+    DetailPenjualanTab(),
   ];
 
   void _onTabTapped(int index) {
@@ -48,21 +51,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Informasi Kasir'),
+        title: Text('KoalaTea'),
         centerTitle: true,
         backgroundColor: Colors.brown,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            color: Colors.black,
-            onPressed: () {
-              showSearch(
-                context: context, 
-                delegate: CustomSearchDelegate(),
-              );
-            },
-          ),
-        ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -75,7 +66,7 @@ class _HomePageState extends State<HomePage> {
               child: Text(
                 'Menu',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 24,
                 ),
               ),
@@ -91,14 +82,14 @@ class _HomePageState extends State<HomePage> {
               leading: Icon(Icons.person_add),
               title: Text('Registrasi'),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => userpage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
               },
             ),
             ListTile(
               leading: Icon(Icons.arrow_back_rounded),
               title: Text('Logout'),
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Splash()));
               },
             ),
           ],
@@ -132,108 +123,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ProdukPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Halaman Produk',
-        style: TextStyle(fontSize: 18),
-      ),
-    );
-  }
-}
-
-class CustomerPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Halaman Pelanggan',
-        style: TextStyle(fontSize: 18),
-      ),
-    );
-  }
-}
-
-class indexpenjualan extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Halaman Penjualan',
-        style: TextStyle(fontSize: 18),
-      ),
-    );
-  }
-}
-
-class indexdetail extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Halaman Detail Penjualan',
-        style: TextStyle(fontSize: 18),
-      ),
-    );
-  }
-}
-
-class CustomSearchDelegate extends SearchDelegate {
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-        icon: Icon(Icons.clear),
-        onPressed: () {
-          query = ''; // Mengosongkan teks pencarian
-          showSuggestions(context); // Memperbarui tampilan setelah query dihapus
-        },
-      ),
-    ];
-  }
-
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, null); // Menutup pencarian dan kembali ke halaman sebelumnya
-      },
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    // Hasil pencarian berdasarkan query
-    return Center(
-      child: Text('Hasil pencarian untuk: $query'),
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    // Menampilkan saran berdasarkan input query
-    final suggestions = query.isEmpty
-        ? ['Semua Produk', 'Semua Pelanggan']
-        : ['Produk $query', 'Pelanggan $query'];
-
-    return ListView.builder(
-      itemCount: suggestions.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(suggestions[index]),
-          onTap: () {
-            query = suggestions[index];
-            showResults(context); // Menampilkan hasil pencarian setelah memilih saran
-          },
-        );
-      },
     );
   }
 }

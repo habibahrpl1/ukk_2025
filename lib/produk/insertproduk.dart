@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ukk_2025/home_page.dart';
 
-class addproduk extends StatefulWidget {
-  const addproduk({super.key});
+class AddProduk extends StatefulWidget {
+  const AddProduk({super.key});
 
   @override
-  State<addproduk> createState() => _addprodukState();
+  State<AddProduk> createState() => _AddProduk();
 }
 
-class _addprodukState extends State<addproduk> {
+class _AddProduk extends State<AddProduk> {
   final _nmprd = TextEditingController();
   final _harga = TextEditingController();
   final _stok = TextEditingController();

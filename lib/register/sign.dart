@@ -59,7 +59,7 @@ class insertuserState extends State<insertuser> {
     //navigasi jika kembali ke halaman sebelumnya dan refresh list
     Navigator.pop(context, true);
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => userpage()));
+        context, MaterialPageRoute(builder: (context) => RegisterPage()));
   }
 
   @override
@@ -115,107 +115,4 @@ class insertuserState extends State<insertuser> {
       ),
     );
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       backgroundColor: Colors.pink[300],
-  //       title: const Text("D'Qasir"),
-  //       centerTitle: true,
-  //       leading: IconButton(
-  //         icon: const Icon(Icons.chevron_left), // Ganti ikon panah menjadi '<'
-  //         onPressed: () {
-  //           Navigator.pop(
-  //               context, true); // Fungsi untuk kembali ke halaman sebelumnya
-  //         },
-  //       ),
-  //     ),
-  //     body: Container(
-  //       child: Column(
-  //         children: [
-  //           SizedBox(height: 10),
-  //           TextField(
-  //             decoration: InputDecoration(
-  //               prefixIcon: Icon(Icons.person),
-  //               hintText: 'Masukkan Nama Anda',
-  //               filled: true,
-  //               fillColor: Colors.white,
-  //               border: OutlineInputBorder(
-  //                 borderRadius: BorderRadius.circular(10),
-  //                 borderSide: BorderSide.none,
-  //               ),
-  //             ),
-  //           ),
-  //           SizedBox(height: 10),
-  //           TextField(
-  //             decoration: InputDecoration(
-  //               prefixIcon: Icon(Icons.email),
-  //               hintText: 'Email',
-  //               filled: true,
-  //               fillColor: Colors.white,
-  //               border: OutlineInputBorder(
-  //                 borderRadius: BorderRadius.circular(10),
-  //                 borderSide: BorderSide.none,
-  //               ),
-  //             ),
-  //           ),
-  //           SizedBox(height: 10),
-  //           TextField(
-  //             decoration: InputDecoration(
-  //               prefixIcon: Icon(Icons.phone),
-  //               hintText: 'Nomor Whatshapp',
-  //               filled: true,
-  //               fillColor: Colors.white,
-  //               border: OutlineInputBorder(
-  //                 borderRadius: BorderRadius.circular(10),
-  //                 borderSide: BorderSide.none,
-  //               ),
-  //             ),
-  //           ),
-  //           SizedBox(height: 10),
-  //           TextField(
-  //             obscureText: true, //agar pasword titik titik
-  //             decoration: InputDecoration(
-  //               prefixIcon: Icon(Icons.lock),
-  //               hintText: 'Masukkan kata sandi ',
-  //               filled: true,
-  //               fillColor: Colors.white,
-  //               border: OutlineInputBorder(
-  //                 borderRadius: BorderRadius.circular(10),
-  //                 borderSide: BorderSide.none,
-  //               ),
-  //             ),
-  //           ),
-  //           SizedBox(height: 10),
-  //           SizedBox(height: 10),
-  //           ElevatedButton(
-  //               onPressed: () {
-  //                 // Arahkan ke halaman Home setelah klik Register
-  //                 Navigator.push(
-  //                   context,
-  //                   MaterialPageRoute(
-  //                     builder: (context) =>
-  //                         homepage(), // Arahkan ke halaman home.dart
-  //                   ),
-  //                 );
-  //               },
-  //               style: ElevatedButton.styleFrom(
-  //                 backgroundColor: Colors.white,
-  //                 shape: RoundedRectangleBorder(
-  //                   borderRadius: BorderRadius.circular(10),
-  //                 ),
-  //                 minimumSize: Size(double.infinity, 50),
-  //               ),
-  //               child: Text('Register',
-  //                   style: TextStyle(
-  //                     fontSize: 15,
-  //                     fontWeight: FontWeight.bold,
-  //                     color: Colors.black,
-  //                   )))
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }
