@@ -98,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: Color.fromRGBO(143, 148, 251, .2),
+                        color: Colors.grey,
                         blurRadius: 30.0,
                         offset: Offset(0, 10),
                       ),
@@ -227,7 +227,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text(
                         "Login",
                         style: TextStyle(
-                          color: Colors.brown.shade50,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

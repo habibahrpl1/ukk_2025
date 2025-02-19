@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ukk_2025/penjualan/insertpenjualan.dart';
+import 'package:intl/intl.dart';
 
-class PenjualanTab extends StatefulWidget {
-  const PenjualanTab({super.key});
+class Indexpenjualan extends StatefulWidget {
+  const Indexpenjualan({super.key});
 
   @override
-  State<PenjualanTab> createState() => _PenjualanTab();
+  State<Indexpenjualan> createState() => _IndexpenjualanState();
 }
 
-class _PenjualanTab extends State<PenjualanTab> {
-  List<Map<String, dynamic>> Penjualan = [];
+class _IndexpenjualanState extends State<Indexpenjualan> {
+  List<Map<String, dynamic>> penjualan = [];
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    fetchpenjualan();
+    fetchPenjualan();
   }
 
-  Future<void> fetchpenjualan() async {
-    setState(() {
-      isLoading = true;
-    });
+  Future<void> fetchPenjualan() async {
     try {
       final response = await Supabase.instance.client
-    .from('penjualan')
-    .select('*, pelanggan(NamaPelanggan)');
+          .from('penjualan')
+          .select('*, pelanggan(*)');
 
       setState(() {
-        Penjualan = List<Map<String, dynamic>>.from(response);
+        penjualan = List<Map<String, dynamic>>.from(response).map((item) {
+          item['date'] = DateFormat('dd-MM-yyyy').format(DateTime.parse(item['TanggalPenjualan']));
+          return item;
+        }).toList();
         isLoading = false;
       });
     } catch (e) {
@@ -40,116 +41,62 @@ class _PenjualanTab extends State<PenjualanTab> {
     }
   }
 
-  Future<void> deletepenjualan(int id) async {
-    await Supabase.instance.client.from('penjualan').delete().eq('PenjualanID', id);
-    fetchpenjualan();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : Penjualan.isEmpty
-              ? const Center(
-                  child: Text(
-                    'Tidak ada penjualan tersedia',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                )
-              : ListView.builder(
-                  padding: const EdgeInsets.all(8),
-                  itemCount: Penjualan.length,
-                  itemBuilder: (context, index) {
-                    final jualan = Penjualan[index];
-                    return Card(
-                      elevation: 4,
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              jualan['TangggalPenjualan'] ?? 'No TangggalPenjualan',
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              jualan['TotalHarga'] != null ? jualan['TotalHarga'].toString() : 'Total Harga Tidak Tersedia',
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  fontStyle: FontStyle.italic,
-                                  color: Colors.grey),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              jualan['pelanggan']?['NamaPelanggan'] ?? 'PelangganID Tidak Tersedia',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                height: 1.4,
-                              ),
-                              textAlign: TextAlign.justify,
-                            ),
-                            const SizedBox(height: 12),
-                            const Divider(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(Icons.delete,
-                                      color: Colors.redAccent),
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text('Hapus Penjualan'),
-                                          content: const Text(
-                                              'Apakah Anda yakin ingin menghapus penjualan ini?'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
-                                              child: const Text('Batal'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                deletepenjualan(jualan['PenjualanID']);
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('Hapus'),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
+          ? Center(child: CircularProgressIndicator()) // Loading indicator
+          : ListView.builder(
+              padding: const EdgeInsets.all(16.0),
+              itemCount: penjualan.length,
+              itemBuilder: (context, index) {
+                final item = penjualan[index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(12.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.brown.withOpacity(0.2),
+                          blurRadius: 8.0,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.all(16.0),
+                      title: Text(
+                        item['pelanggan']['NamaPelanggan'],
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
                       ),
-                    );
-                  },
-                ),
+                      subtitle: Text(
+                        'Total Harga: ${item['TotalHarga']}\nTanggal Penjualan: ${item['date']}',
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigasi ke halaman untuk menambah buku baru
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => AddPenjualan(),
-            ),
+            MaterialPageRoute(builder: (context) => Insertpenjualan()),
           );
         },
-        backgroundColor: Colors.pink[200],
-        child: const Icon(Icons.add),
+        child: Icon(Icons.add),
+        backgroundColor: Colors.brown,
+        foregroundColor: Colors.black,
       ),
     );
   }

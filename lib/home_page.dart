@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ukk_2025/detailpenjualan/indexdetail.dart';
 import 'package:ukk_2025/penjualan/indexpenjualan.dart';
 import 'package:ukk_2025/login.dart';
 import 'package:ukk_2025/main.dart';
 import 'package:ukk_2025/pelanggan/indexpelanggan.dart';
-import 'package:ukk_2025/pelanggan/insertpelanggan.dart';
 import 'package:ukk_2025/produk/indexproduk.dart';
-import 'package:ukk_2025/penjualan/indexpenjualan.dart';
-import 'package:ukk_2025/penjualan/insertpenjualan.dart';
 import 'package:ukk_2025/register/indexuser.dart';
-import 'package:ukk_2025/register/updateuser.dart';
-import 'package:ukk_2025/penjualan/detailpenjualan.dart';
 import 'package:ukk_2025/splash.dart';
 
 void main() {
@@ -32,18 +28,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0; 
+  int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    Produk(),   
+    Produk(),
     Pelanggan(),
-    PenjualanTab(),
-    DetailPenjualanTab(),
+    Indexpenjualan(),
+    IndexDetail(),
   ];
 
   void _onTabTapped(int index) {
     setState(() {
-      _selectedIndex = index; 
+      _selectedIndex = index;
     });
   }
 
@@ -54,6 +50,17 @@ class _HomePageState extends State<HomePage> {
         title: Text('KoalaTea'),
         centerTitle: true,
         backgroundColor: Colors.brown,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search, color: Colors.black),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SearchPage()),
+              );
+            },
+          ),
+        ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -122,6 +129,35 @@ class _HomePageState extends State<HomePage> {
             label: 'Detail Penjualan',
           ),
         ],
+      ),
+    );
+  }
+}
+
+class SearchPage extends StatelessWidget {
+  final List<String> items = [
+    'Produk', 
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Pencarian'),
+        backgroundColor: Colors.brown,
+      ),
+      body: ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(items[index]),
+            onTap: () {
+              if (items[index].contains('Produk')) {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Produk()));
+              }
+            },
+          );
+        },
       ),
     );
   }
